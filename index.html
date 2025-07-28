@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Brew Haven - The Art of Good Food</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+   <ul class="nav-links">
+  <li><a href="index.html" class="active">Home</a></li>
+  <li><a href="#about">About</a></li>
+  <li><a href="#testimonials">Testimonials</a></li>
+  <li><a href="menu.html">Menu</a></li>
+  <li><a href="reservation.html">Reserve</a></li>
+</ul>
+
+  <style>
+    :root {
+      --primary: #d35400;
+      --accent: #f39c12;
+      --dark: #2c3e50;
+      --light: #fdfaf6;
+      --text-dark: #3c3c3c;
+      --font-heading: 'Playfair Display', serif;
+      --font-body: 'Poppins', sans-serif;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--light);
+      color: var(--text-dark);
+      line-height: 1.6;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* Navbar */
+    header {
+      background: white;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .navbar {
+      max-width: 1200px;
+      margin: auto;
+      padding: 1.2rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-family: var(--font-heading);
+      color: var(--primary);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--primary);
+    }
+
+    /* Hero Section */
+    .hero {
+      background: url('https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+      height: 100vh;
+      position: relative;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(44, 62, 80, 0.6);
+      z-index: 0;
+    }
+
+    .hero-text {
+      position: relative;
+      z-index: 1;
+      max-width: 700px;
+      padding: 0 20px;
+    }
+
+    .hero-text h1 {
+      font-family: var(--font-heading);
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+      color: #fff;
+    }
+
+    .hero-text p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      color: #f9f9f9;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+      padding: 12px 28px;
+      border: none;
+      border-radius: 4px;
+      font-weight: bold;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .btn-primary:hover {
+      background: #b34700;
+    }
+
+    /* Section */
+    section {
+      padding: 80px 20px;
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    h2 {
+      font-family: var(--font-heading);
+      text-align: center;
+      margin-bottom: 2rem;
+      font-size: 2.2rem;
+      color: var(--dark);
+    }
+
+    .about p {
+      text-align: center;
+      font-size: 1.1rem;
+      max-width: 800px;
+      margin: auto;
+      color: #555;
+    }
+
+    /* Testimonials */
+    .testimonials .carousel {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .testimonial-card {
+      display: none;
+      text-align: center;
+      transition: opacity 0.4s;
+    }
+
+    .testimonial-card.active {
+      display: block;
+    }
+
+    .testimonial-card img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      margin-bottom: 1rem;
+      border: 3px solid var(--accent);
+    }
+
+    .testimonial-card p {
+      font-style: italic;
+      color: #333;
+    }
+
+    .testimonial-card h4 {
+      margin-top: 1rem;
+      color: var(--primary);
+    }
+
+    .carousel-controls {
+      text-align: center;
+      margin-top: 1.5rem;
+    }
+
+    .carousel-controls span {
+      cursor: pointer;
+      margin: 0 10px;
+      font-size: 1.5rem;
+      color: var(--primary);
+    }
+
+    /* Footer */
+    footer {
+      background: var(--dark);
+      color: white;
+      text-align: center;
+      padding: 2rem 1rem;
+    }
+
+    footer .socials a {
+      color: white;
+      margin: 0 10px;
+      font-size: 1.2rem;
+    }
+
+    /* Animations */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.6s ease;
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 768px) {
+      .hero-text h1 { font-size: 2.2rem; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <nav class="navbar">
+      <div class="logo">𝓑𝓻𝓮𝔀 𝓗𝓪𝓿𝓮𝓷</div>
+      <ul class="nav-links">
+        <li><a href="#home" class="active">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#testimonials">Testimonials</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section class="hero reveal" id="home">
+    <div class="hero-text">
+      <h1>Experience the Taste of Joy</h1>
+      <p>Warm coffee. Handcrafted meals. Memories made daily.</p>
+      <a href="#testimonials" class="btn-primary">Read Reviews</a>
+    </div>
+  </section>
+
+  <!-- ABOUT SECTION -->
+  <section class="about reveal" id="about">
+    <h2>Our Story</h2>
+    <p>Born from a love of flavor, Brew Havencombines gourmet food with heartwarming ambiance. Our chefs pour soul into every dish, from morning omelettes to evening pastas. Step inside and savor the experience of handpicked ingredients and community-driven service.</p>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials reveal" id="testimonials">
+    <h2>What Guests Are Saying</h2>
+    <div class="carousel">
+      <div class="testimonial-card active">
+        <img src="https://randomuser.me/api/portraits/women/50.jpg" alt="user" />
+        <p>"The cinnamon pancakes were out of this world. The best brunch I've had in years!"</p>
+        <h4>— Aarya Shah</h4>
+      </div>
+      <div class="testimonial-card">
+        <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="user" />
+        <p>"I came for the coffee, stayed for the pasta. Such cozy vibes!"</p>
+        <h4>— Rohan Kulkarni</h4>
+      </div>
+      <div class="testimonial-card">
+        <img src="https://randomuser.me/api/portraits/women/55.jpg" alt="user" />
+        <p>"A hidden gem! Lovely ambience, attentive staff, and delightful food."</p>
+        <h4>— Sneha Reddy</h4>
+      </div>
+      <div class="carousel-controls">
+        <span class="prev"><i class="fas fa-chevron-left"></i></span>
+        <span class="next"><i class="fas fa-chevron-right"></i></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 Brew Haven| Designed with flavor and flair.</p>
+    <div class="socials">
+      <a href="#"><i class="fab fa-instagram"></i></a>
+      <a href="#"><i class="fab fa-facebook-f"></i></a>
+      <a href="#"><i class="fab fa-twitter"></i></a>
+    </div>
+  </footer>
+
+  <!-- SCRIPT -->
+  <script>
+    // Reveal animation
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    }, { threshold: 0.1 });
+    reveals.forEach(r => observer.observe(r));
+
+    // Carousel
+    const cards = document.querySelectorAll('.testimonial-card');
+    let current = 0;
+
+    function showSlide(index) {
+      cards.forEach(c => c.classList.remove('active'));
+      cards[index].classList.add('active');
+    }
+
+    document.querySelector('.next').addEventListener('click', () => {
+      current = (current + 1) % cards.length;
+      showSlide(current);
+    });
+
+    document.querySelector('.prev').addEventListener('click', () => {
+      current = (current - 1 + cards.length) % cards.length;
+      showSlide(current);
+    });
+
+    setInterval(() => {
+      current = (current + 1) % cards.length;
+      showSlide(current);
+    }, 6000);
+  </script>
+
+</body>
+</html>

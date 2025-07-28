@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Reservation | Brew Haven</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;500&display=swap" rel="stylesheet"/>
+
+  <style>
+    :root {
+      --primary: #d35400;
+      --bg: #fffaf5;
+      --font-heading: 'Playfair Display', serif;
+      --font-body: 'Poppins', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      padding: 40px 20px;
+      color: #2c3e50;
+    }
+
+    h1 {
+      text-align: center;
+      font-family: var(--font-heading);
+      font-size: 3rem;
+      margin-bottom: 10px;
+    }
+
+    p.subtitle {
+      text-align: center;
+      color: #666;
+      margin-bottom: 40px;
+    }
+
+    form {
+      max-width: 600px;
+      background: white;
+      padding: 30px;
+      margin: auto;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-weight: 500;
+      margin-bottom: 5px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1.5px solid #ccc;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-family: var(--font-body);
+    }
+
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    .error {
+      color: red;
+      font-size: 0.85rem;
+      margin-top: 4px;
+    }
+
+    button {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 14px 30px;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background: #b34700;
+    }
+
+    /* Confirmation Modal */
+    .modal {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      visibility: hidden;
+      opacity: 0;
+      transition: 0.3s ease;
+      z-index: 1000;
+    }
+
+    .modal.active {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    .modal-box {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      max-width: 400px;
+      text-align: center;
+      animation: fadeIn 0.4s ease;
+    }
+
+    .modal-box h2 {
+      font-family: var(--font-heading);
+      color: var(--primary);
+      margin-bottom: 10px;
+    }
+
+    @keyframes fadeIn {
+      from { transform: scale(0.9); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>Book a Table</h1>
+  <p class="subtitle">Reserve your seat at Brew Haven</p>
+
+  <form id="reservationForm">
+    <div class="form-group">
+      <label for="name">Full Name *</label>
+      <input type="text" id="name" required />
+      <div class="error" id="error-name"></div>
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email *</label>
+      <input type="email" id="email" required />
+      <div class="error" id="error-email"></div>
+    </div>
+
+    <div class="form-group">
+      <label for="phone">Phone *</label>
+      <input type="tel" id="phone" required />
+      <div class="error" id="error-phone"></div>
+    </div>
+
+    <div class="form-group">
+      <label for="guests">Number of Guests *</label>
+      <select id="guests" required>
+        <option value="">Select</option>
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4+</option>
+      </select>
+      <div class="error" id="error-guests"></div>
+    </div>
+
+    <div class="form-group">
+      <label for="date">Date *</label>
+      <input type="date" id="date" required />
+      <div class="error" id="error-date"></div>
+    </div>
+
+    <div class="form-group">
+      <label for="time">Time *</label>
+      <select id="time" required>
+        <option value="">Select</option>
+        <option>10:00 AM</option>
+        <option>12:00 PM</option>
+        <option>02:00 PM</option>
+        <option>06:00 PM</option>
+        <option>08:00 PM</option>
+      </select>
+      <div class="error" id="error-time"></div>
+    </div>
+
+    <div class="form-group">
+      <label for="message">Special Requests</label>
+      <textarea id="message" rows="3" placeholder="Any special requests?"></textarea>
+    </div>
+
+    <button type="submit">Reserve Now</button>
+  </form>
+
+  <!-- Confirmation Modal -->
+  <div class="modal" id="modal">
+    <div class="modal-box">
+      <h2>Reservation Confirmed!</h2>
+      <p>Thank you for booking with Brew Haven. We look forward to serving you!</p>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('reservationForm');
+    const modal = document.getElementById('modal');
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      let isValid = true;
+
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const guests = document.getElementById('guests').value;
+      const date = document.getElementById('date').value;
+      const time = document.getElementById('time').value;
+
+      const showError = (id, msg) => {
+        document.getElementById(id).textContent = msg;
+        isValid = false;
+      };
+
+      document.querySelectorAll('.error').forEach(e => e.textContent = '');
+
+      if (name.length < 2) showError('error-name', 'Name is required.');
+      if (!email.includes('@') || !email.includes('.')) showError('error-email', 'Enter a valid email.');
+      if (!/^\d{10}$/.test(phone)) showError('error-phone', 'Enter 10-digit phone number.');
+      if (!guests) showError('error-guests', 'Select number of guests.');
+      if (!date) showError('error-date', 'Select a date.');
+      if (!time) showError('error-time', 'Select a time.');
+
+      if (isValid) {
+        form.reset();
+        modal.classList.add('active');
+        setTimeout(() => {
+          modal.classList.remove('active');
+        }, 4000);
+      }
+    });
+  </script>
+
+</body>
+</html>

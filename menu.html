@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Our Menu | Brew Haven</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --primary: #d35400;
+      --accent: #f39c12;
+      --bg: #fffaf5;
+      --text: #2c3e50;
+      --font-heading: 'Playfair Display', serif;
+      --font-body: 'Poppins', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 40px 20px;
+    }
+
+    h1 {
+      text-align: center;
+      font-family: var(--font-heading);
+      font-size: 3rem;
+      margin-bottom: 10px;
+    }
+
+    p.subtitle {
+      text-align: center;
+      color: #666;
+      margin-bottom: 40px;
+    }
+
+    .filters {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-bottom: 30px;
+    }
+
+    .filters button {
+      padding: 10px 20px;
+      border: 2px solid var(--primary);
+      background: transparent;
+      color: var(--primary);
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    .filters button.active,
+    .filters button:hover {
+      background: var(--primary);
+      color: white;
+    }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    .menu-item {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.06);
+      overflow: hidden;
+      transition: transform 0.3s;
+    }
+
+    .menu-item:hover {
+      transform: translateY(-5px);
+    }
+
+    .menu-item img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .menu-content {
+      padding: 15px 20px;
+    }
+
+    .menu-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 600;
+      font-size: 1.1rem;
+      margin-bottom: 5px;
+    }
+
+    .menu-description {
+      font-size: 0.95rem;
+      color: #555;
+    }
+
+    .tags {
+      margin-top: 8px;
+    }
+
+    .tag {
+      display: inline-block;
+      background: var(--accent);
+      color: white;
+      font-size: 0.75rem;
+      padding: 3px 8px;
+      margin-right: 5px;
+      border-radius: 4px;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 2.2rem; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>Our Menu</h1>
+  <p class="subtitle">Delicious meals, handpicked for you</p>
+
+  <div class="filters">
+    <button class="active" data-category="all">All</button>
+    <button data-category="starters">Starters</button>
+    <button data-category="mains">Mains</button>
+    <button data-category="desserts">Desserts</button>
+    <button data-category="drinks">Drinks</button>
+  </div>
+
+  <div class="menu-grid">
+
+    <!-- STARTERS -->
+    <div class="menu-item" data-category="starters">
+      <img src="brusheeta.png" alt="Bruschetta">
+      <div class="menu-content">
+        <div class="menu-title">
+          <span>Bruschetta</span>
+          <span>₹180</span>
+        </div>
+        <p class="menu-description">Toasted bread with tomatoes, garlic & basil.</p>
+        <div class="tags"><span class="tag">🌱 Veg</span></div>
+      </div>
+    </div>
+
+    <div class="menu-item" data-category="starters">
+      <img src="tbs.png" alt="Soup">
+      <div class="menu-content">
+        <div class="menu-title">
+          <span>Tomato Basil Soup</span>
+          <span>₹150</span>
+        </div>
+        <p class="menu-description">Rich tomato soup served with herbs and croutons.</p>
+        <div class="tags"><span class="tag">🔥 Hot</span></div>
+      </div>
+    </div>
+
+    <!-- MAINS -->
+    <div class="menu-item" data-category="mains">
+      <img src="penne.png" alt="Pasta">
+      <div class="menu-content">
+        <div class="menu-title">
+          <span>Penne Arrabiata</span>
+          <span>₹350</span>
+        </div>
+        <p class="menu-description">Spicy tomato-based pasta with olives & garlic.</p>
+        <div class="tags"><span class="tag">🌶 Spicy</span><span class="tag">🌱 Veg</span></div>
+      </div>
+    </div>
+
+    <div class="menu-item" data-category="mains">
+      <img src="gc.png" alt="Chicken">
+      <div class="menu-content">
+        <div class="menu-title">
+          <span>Grilled Chicken</span>
+          <span>₹450</span>
+        </div>
+        <p class="menu-description">Juicy grilled chicken with rosemary and sides.</p>
+        <div class="tags"><span class="tag">⭐ Popular</span></div>
+      </div>
+    </div>
+
+    <!-- DESSERTS -->
+    <div class="menu-item" data-category="desserts">
+      <img src="clc.png" alt="Cake">
+      <div class="menu-content">
+        <div class="menu-title">
+          <span>Chocolate Lava Cake</span>
+          <span>₹220</span>
+        </div>
+        <p class="menu-description">Warm molten chocolate cake served with ice cream.</p>
+        <div class="tags"><span class="tag">🍫 Choco</span></div>
+      </div>
+    </div>
+
+    <!-- DRINKS -->
+    <div class="menu-item" data-category="drinks">
+      <img src="latte.png" alt="Coffee">
+      <div class="menu-content">
+        <div class="menu-title">
+          <span>Café Latte</span>
+          <span>₹160</span>
+        </div>
+        <p class="menu-description">Espresso with steamed milk and frothy top.</p>
+        <div class="tags"><span class="tag">☕ Hot</span></div>
+      </div>
+    </div>
+
+    <div class="menu-item" data-category="drinks">
+      <img src="mango.png" alt="Smoothie">
+      <div class="menu-content">
+        <div class="menu-title">
+          <span>Mango Smoothie</span>
+          <span>₹190</span>
+        </div>
+        <p class="menu-description">Refreshing chilled mango drink with yogurt base.</p>
+        <div class="tags"><span class="tag">❄️ Cold</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    const buttons = document.querySelectorAll('.filters button');
+    const items = document.querySelectorAll('.menu-item');
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        buttons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const category = btn.dataset.category;
+
+        items.forEach(item => {
+          if (category === 'all' || item.dataset.category === category) {
+            item.classList.remove('hidden');
+          } else {
+            item.classList.add('hidden');
+          }
+        });
+      });
+    });
+  </script>
+
+</body>
+</html>
