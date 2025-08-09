@@ -17,9 +17,6 @@ Brew Haven is a front-end website project that showcases a modern and visually a
 - CSS3
 - Google Fonts
 
-## Getting Started
 
-### 1. Clone the repository
 
-```bash
-git clone https://github.com/yourusername/brew-haven.git
+
